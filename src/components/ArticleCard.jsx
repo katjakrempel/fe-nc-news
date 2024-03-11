@@ -1,10 +1,12 @@
 function ArticleCard({ article }) {
   return (
     <li className="article-card">
-      <p>{article.title}</p>
-      <p>{article.author}</p>
-      <p>{article.comment_count}</p>
-      <p>{article.votes}</p>
+      <h3>{article.title}</h3>
+      <p>Posted by: {article.author}</p>
+      <img src={article.article_img_url} />
+      <p>Topic: {article.topic}</p>
+      <p>Comments: {article.comment_count}</p>
+      <p>Votes: {article.votes}</p>
     </li>
   );
 }
