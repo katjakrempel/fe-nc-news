@@ -1,10 +1,18 @@
 header {
-    background-color: purple;
-    color: white;
+  background-color: purple;
+  color: white;
 }
 
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.nav-link {
+  background-color: white;
+  color: purple;
+  border: 1px solid white;
+  border-radius: 12px;
+  padding: 1em;
 }
 
 .article-card {
