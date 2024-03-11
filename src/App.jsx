@@ -1,9 +1,12 @@
 import "./App.css";
+import Header from "./components/Header";
+import ArticleList from "./components/ArticleList";
 
 function App() {
   return (
     <>
-      <h1>NC News</h1>
+      <Header />
+      <ArticleList />
     </>
   );
 }
