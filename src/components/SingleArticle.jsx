@@ -1,36 +1,22 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { fetchArticleById } from "../../utils/api";
+import { getArticleById, getCommentsByArticleId } from "../../utils/api";
 import CommentCard from "./CommentCard";
 
 function SingleArticle() {
   const { article_id } = useParams();
   const [article, setArticle] = useState({});
-  const [comments, setComments] = useState([
-    {
-      comment_id: 16,
-      body: "This is a bad article name",
-      article_id: 6,
-      author: "butter_bridge",
-      votes: 1,
-      created_at: "2020-10-11T15:23:00.000Z",
-    },
-    {
-      comment_id: 167,
-      body: "Deleniti itaque et est unde autem. Labore illo commodi quaerat natus fugiat adipisci. Adipisci unde recusandae aliquam suscipit ipsum.",
-      article_id: 3,
-      author: "grumpy19",
-      votes: 19,
-      created_at: "2020-02-05T09:16:00.000Z",
-    },
-  ]);
+  const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
-    fetchArticleById(article_id).then((response) => {
+    getArticleById(article_id).then((response) => {
       setArticle(response);
       setIsLoading(false);
+    });
+    getCommentsByArticleId(article_id).then((response) => {
+      setComments(response);
     });
   }, [article_id]);
 
