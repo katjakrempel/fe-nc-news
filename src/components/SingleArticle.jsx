@@ -19,7 +19,9 @@ function SingleArticle() {
   return (
     <div className="single-article">
       <h3>{article.title}</h3>
-      <p>Posted by {article.author} at {article.created_at.slice(0,10)}</p>
+      <p>
+        Posted by {article.author} at {article.created_at.slice(0, 10)}
+      </p>
       <img src={article.article_img_url} />
       <p>Topic: {article.topic}</p>
       <p>Comments: {article.comment_count}</p>
