@@ -5,10 +5,11 @@ function ArticleCard({ article }) {
     <li className="article-card">
       <Link to={`/articles/${article.article_id}`}>
         <h3>{article.title}</h3>
-        <img src={article.article_img_url} />
+        <p>...Read more</p>
       </Link>
+      <img src={article.article_img_url} />
       <p>
-        Posted by {article.author} at {article.created_at.slice(0, 10)}
+        Posted by {article.author} on {article.created_at.slice(0, 10)}
       </p>
       <p>Topic: {article.topic}</p>
       <p>Comments: {article.comment_count}</p>
