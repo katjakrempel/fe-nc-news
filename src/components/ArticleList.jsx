@@ -9,7 +9,7 @@ function ArticleList() {
 
   useEffect(() => {
     getArticles().then((response) => {
-      setArticles(response);
+      setArticles(response.data.articles);
       setIsLoading(false);
     });
   }, []);

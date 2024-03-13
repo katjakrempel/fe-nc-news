@@ -12,11 +12,11 @@ function SingleArticle() {
   useEffect(() => {
     setIsLoading(true);
     getArticleById(article_id).then((response) => {
-      setArticle(response);
+      setArticle(response.data.article);
       setIsLoading(false);
     });
     getCommentsByArticleId(article_id).then((response) => {
-      setComments(response);
+      setComments(response.data.comments);
     });
   }, [article_id]);
 
