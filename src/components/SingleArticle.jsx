@@ -7,20 +7,23 @@ function SingleArticle() {
   const { article_id } = useParams();
   const [article, setArticle] = useState({});
   const [comments, setComments] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [articleLoading, setArticleLoading] = useState(true);
+  const [commentsLoading, setCommentsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true);
+    setArticleLoading(true);
     getArticleById(article_id).then((response) => {
       setArticle(response.data.article);
-      setIsLoading(false);
+      setArticleLoading(false);
     });
+    setCommentsLoading(true);
     getCommentsByArticleId(article_id).then((response) => {
       setComments(response.data.comments);
+      setCommentsLoading(false);
     });
   }, [article_id]);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (articleLoading || commentsLoading) return <p>Loading...</p>;
   return (
     <div>
       <section className="single-article">
