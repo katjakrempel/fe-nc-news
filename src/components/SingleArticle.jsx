@@ -13,12 +13,18 @@ function SingleArticle() {
 
   function upVote(article_id) {
     const body = {inc_votes: 1}
-    return patchArticle(article_id, body).then((response)=>{setArticle(response.data.article)})
+    setArticle((currArticle) => {
+      return {...currArticle, votes: article.votes + 1}
+    })
+    patchArticle(article_id, body)
   }
 
   function downVote(article_id) {
     const body = {inc_votes: -1}
-    return patchArticle(article_id, body).then((response)=>{setArticle(response.data.article)})
+    setArticle((currArticle) => {
+      return {...currArticle, votes: article.votes -1}
+    })
+    patchArticle(article_id, body)
   }
 
   useEffect(() => {
@@ -33,7 +39,7 @@ function SingleArticle() {
       setCommentsLoading(false);
     });
   }, [article_id]);
-console.log(article.comment_count)
+// console.log(article.comment_count)
   if (articleLoading || commentsLoading) return <p>Loading...</p>;
   return (
     <div>
@@ -47,7 +53,7 @@ console.log(article.comment_count)
         <p>Comments: {article.comment_count}</p>
         <button onClick={() => {
           upVote(article.article_id)
-          console.log(article.comment_count)
+          // console.log(article.comment_count)
           }} className="vote-button">+</button>
         <span className="article-vote">Votes: {article.votes}</span>
         <button onClick={() => downVote(article.article_id)} className="vote-button">-</button>
