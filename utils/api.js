@@ -15,3 +15,7 @@ export function getArticleById(article_id) {
 export function getCommentsByArticleId(article_id) {
     return api.get(`/articles/${article_id}/comments`)
 };
+
+export function patchArticle(article_id, body) {
+    return api.patch(`/articles/${article_id}`, body)
+}

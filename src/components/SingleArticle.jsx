@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getArticleById, getCommentsByArticleId } from "../../utils/api";
+import { getArticleById, getCommentsByArticleId, patchArticle } from "../../utils/api";
 import CommentCard from "./CommentCard";
 
 function SingleArticle() {
@@ -9,6 +9,17 @@ function SingleArticle() {
   const [comments, setComments] = useState([]);
   const [articleLoading, setArticleLoading] = useState(true);
   const [commentsLoading, setCommentsLoading] = useState(true);
+  const [] = useState()
+
+  function upVote(article_id) {
+    const body = {inc_votes: 1}
+    return patchArticle(article_id, body).then((response)=>{setArticle(response.data.article)})
+  }
+
+  function downVote(article_id) {
+    const body = {inc_votes: -1}
+    return patchArticle(article_id, body).then((response)=>{setArticle(response.data.article)})
+  }
 
   useEffect(() => {
     setArticleLoading(true);
@@ -22,19 +33,24 @@ function SingleArticle() {
       setCommentsLoading(false);
     });
   }, [article_id]);
-
+console.log(article.comment_count)
   if (articleLoading || commentsLoading) return <p>Loading...</p>;
   return (
     <div>
       <section className="single-article">
         <h3>{article.title}</h3>
         <p>
-          Posted by {article.author} at {article.created_at.slice(0, 10)}
+          Posted by {article.author} on {article.created_at.slice(0, 10)}
         </p>
         <img src={article.article_img_url} />
         <p>Topic: {article.topic}</p>
         <p>Comments: {article.comment_count}</p>
-        <p>Votes: {article.votes}</p>
+        <button onClick={() => {
+          upVote(article.article_id)
+          console.log(article.comment_count)
+          }} className="vote-button">+</button>
+        <span className="article-vote">Votes: {article.votes}</span>
+        <button onClick={() => downVote(article.article_id)} className="vote-button">-</button>
         <p>{article.body}</p>
       </section>
       <section className="comment-list">
