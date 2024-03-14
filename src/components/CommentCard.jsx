@@ -1,8 +1,21 @@
-import {useContext } from "react";
+import { useContext } from "react";
 import UserContext from "../contexts/User";
+import { deleteComment } from "../../utils/api";
 
-function CommentCard({ comment }) {
+function CommentCard({ comment, setComments }) {
   const { loggedInUser } = useContext(UserContext);
+
+  function handleDelete(event) {
+    event.preventDefault();
+    deleteComment(comment.comment_id).then(() => {
+      setComments((currComments) => {
+        return currComments.filter((currComment) => {
+          return currComment.comment_id !== comment.comment_id;
+        });
+      });
+    });
+  }
+
   return (
     <section className="comment-card">
       <p>
@@ -10,8 +23,13 @@ function CommentCard({ comment }) {
       </p>
       <p>{comment.body}</p>
       <p>Votes: {comment.votes}</p>
-
-      <button disabled={comment.author === loggedInUser.username ? false : true}  className="delete-button">Delete</button>
+      <button
+        onClick={handleDelete}
+        disabled={comment.author === loggedInUser.username ? false : true}
+        className="delete-button"
+      >
+        Delete
+      </button>
     </section>
   );
 }
