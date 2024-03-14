@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getArticleById, getCommentsByArticleId, patchArticle } from "../../utils/api";
 import CommentCard from "./CommentCard";
+import CommentAdder from "./CommentAdder";
 
 function SingleArticle() {
   const { article_id } = useParams();
@@ -73,6 +74,7 @@ function SingleArticle() {
       </section>
       <section className="comment-list">
         <h4>Comments</h4>
+        <CommentAdder />
         <ul>
           {comments.map((comment) => {
             return <CommentCard key={comment.comment_id} comment={comment} />;

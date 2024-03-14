@@ -58,6 +58,15 @@ body {
   padding-left: 1em;
 }
 
+.comment-form {
+  padding-left: 3em;
+}
+
+#new-comment {
+  width: 50%;
+  height: 25px;
+}
+
 .article-vote {
   margin: 1em;
 }
