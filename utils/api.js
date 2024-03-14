@@ -5,13 +5,17 @@ const api = axios.create({
 });
 
 export function getArticles() {
-    return api.get('/articles').then((response) => response.data.articles);
+    return api.get('/articles')
 };
 
 export function getArticleById(article_id) {
-    return api.get(`/articles/${article_id}`).then((response) => response.data.article)
+    return api.get(`/articles/${article_id}`)
 };
 
 export function getCommentsByArticleId(article_id) {
-return api.get(`/articles/${article_id}/comments`).then((response)=> response.data.comments)
+    return api.get(`/articles/${article_id}/comments`)
 };
+
+export function patchArticle(article_id, body) {
+    return api.patch(`/articles/${article_id}`, body)
+}
