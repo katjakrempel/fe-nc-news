@@ -1,4 +1,8 @@
+import {useContext } from "react";
+import UserContext from "../contexts/User";
+
 function CommentCard({ comment }) {
+  const { loggedInUser } = useContext(UserContext);
   return (
     <section className="comment-card">
       <p>
@@ -6,6 +10,8 @@ function CommentCard({ comment }) {
       </p>
       <p>{comment.body}</p>
       <p>Votes: {comment.votes}</p>
+
+      <button disabled={comment.author === loggedInUser.username ? false : true}  className="delete-button">Delete</button>
     </section>
   );
 }
