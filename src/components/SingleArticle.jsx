@@ -9,22 +9,34 @@ function SingleArticle() {
   const [comments, setComments] = useState([]);
   const [articleLoading, setArticleLoading] = useState(true);
   const [commentsLoading, setCommentsLoading] = useState(true);
-  const [] = useState()
+  const [voteError, setVoteError] = useState(null);
 
   function upVote(article_id) {
     const body = {inc_votes: 1}
     setArticle((currArticle) => {
-      return {...currArticle, votes: article.votes + 1}
+      return {...currArticle, votes: currArticle.votes + 1}
     })
-    patchArticle(article_id, body)
+    setVoteError(null);
+    patchArticle(article_id, body).catch((err)=>{
+      setArticle((currArticle) => {
+        return {...currArticle, votes: currArticle.votes - 1}
+      })
+      setVoteError('Something went wrong, please try again')
+    })
   }
 
   function downVote(article_id) {
     const body = {inc_votes: -1}
     setArticle((currArticle) => {
-      return {...currArticle, votes: article.votes -1}
+      return {...currArticle, votes: currArticle.votes - 1}
     })
-    patchArticle(article_id, body)
+    setVoteError(null);
+    patchArticle(article_id, body).catch((err)=>{
+      setArticle((currArticle) => {
+        return {...currArticle, votes: currArticle.votes + 1}
+      })
+      setVoteError('Something went wrong, please try again')
+    })
   }
 
   useEffect(() => {
@@ -39,8 +51,9 @@ function SingleArticle() {
       setCommentsLoading(false);
     });
   }, [article_id]);
-// console.log(article.comment_count)
+
   if (articleLoading || commentsLoading) return <p>Loading...</p>;
+  if (voteError) return <p>{voteError}</p>;
   return (
     <div>
       <section className="single-article">
@@ -53,7 +66,6 @@ function SingleArticle() {
         <p>Comments: {article.comment_count}</p>
         <button onClick={() => {
           upVote(article.article_id)
-          // console.log(article.comment_count)
           }} className="vote-button">+</button>
         <span className="article-vote">Votes: {article.votes}</span>
         <button onClick={() => downVote(article.article_id)} className="vote-button">-</button>
