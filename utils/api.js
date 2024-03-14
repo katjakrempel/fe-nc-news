@@ -18,4 +18,8 @@ export function getCommentsByArticleId(article_id) {
 
 export function patchArticle(article_id, body) {
     return api.patch(`/articles/${article_id}`, body)
-}
+};
+
+export function postComment(article_id, body) {
+    return api.post(`/articles/${article_id}/comments`, body)
+};

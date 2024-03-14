@@ -74,7 +74,7 @@ function SingleArticle() {
       </section>
       <section className="comment-list">
         <h4>Comments</h4>
-        <CommentAdder />
+        <CommentAdder article={article} setComments={setComments}/>
         <ul>
           {comments.map((comment) => {
             return <CommentCard key={comment.comment_id} comment={comment} />;

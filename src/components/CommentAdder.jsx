@@ -1,11 +1,24 @@
 import { useState } from "react";
+import { postComment } from "../../utils/api";
 
-function CommentAdder() {
+function CommentAdder({ article, setComments }) {
   const [newComment, setNewComment] = useState("");
-  console.log(newComment)
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const requestBody = { username: "cooljmessy", body: newComment };
+    postComment(article.article_id, requestBody).then((response) => {
+      const newCommentFromApi = response.data.comment;
+      setNewComment("");
+      setComments((currComments) => {
+        return [newCommentFromApi, ...currComments];
+      });
+    });
+  }
+
   return (
     <section>
-      <form className="comment-form">
+      <form className="comment-form" onSubmit={handleSubmit}>
         <input
           placeholder="Write a comment..."
           value={newComment}
