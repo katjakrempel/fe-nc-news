@@ -8,6 +8,10 @@ header {
   color: white;
 }
 
+header p {
+  text-align: right;
+}
+
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
