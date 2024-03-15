@@ -1,8 +1,31 @@
+import { useEffect, useState } from "react";
+import { getTopics } from "../../utils/api";
+
 function TopicList() {
+  const [topics, setTopics] = useState([]);
+  const [topicsLoading, setTopicsLoading] = useState(true);
+
+  useEffect(() => {
+    getTopics().then((response) => {
+      setTopics(response.data.topics);
+      setTopicsLoading(false);
+    });
+  }, []);
+
+  if (topicsLoading) return <p>Loading...</p>;
   return (
     <section>
       <h2>Browse by Topic</h2>
-      <p>tbd</p>
+      <ul>
+        {topics.map((topic) => {
+          return (
+            <li key={topic.slug}>
+              <h3>{topic.slug[0].toUpperCase()+topic.slug.slice(1,)}</h3>
+              <p>{topic.description}</p>
+            </li>
+          );
+        })}
+      </ul>
     </section>
   );
 }
