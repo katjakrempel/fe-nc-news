@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import ArticleList from "./components/ArticleList";
 import TopicList from "./components/TopicList";
 import SingleArticle from "./components/SingleArticle";
+import ErrorPage from "./components/ErrorPage";
 import UserContext from "./contexts/User";
 
 function App() {
@@ -17,13 +18,14 @@ function App() {
   });
 
   return (
-    <UserContext.Provider value={{loggedInUser, setLoggedInUser}}>
+    <UserContext.Provider value={{ loggedInUser, setLoggedInUser }}>
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/articles" element={<ArticleList />} />
         <Route path="/articles/:article_id" element={<SingleArticle />} />
         <Route path="/topics" element={<TopicList />} />
+        <Route path="*" element={<ErrorPage errorMessage={"404: Page not found"}/>} />
       </Routes>
     </UserContext.Provider>
   );

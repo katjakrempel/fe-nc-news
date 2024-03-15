@@ -46,10 +46,11 @@ function SingleArticle() {
 
   useEffect(() => {
     setArticleLoading(true);
-    getArticleById(article_id).then((response) => {
-      setArticle(response.data.article);
-      setArticleLoading(false);
-    });
+    getArticleById(article_id)
+      .then((response) => {
+        setArticle(response.data.article);
+        setArticleLoading(false);
+      });
     setCommentsLoading(true);
     getCommentsByArticleId(article_id).then((response) => {
       setComments(response.data.comments);
