@@ -79,3 +79,11 @@ body {
   margin: 1em;
 }
 
+.topic-card {
+  width: 50%;
+  border: 2px solid darkblue;
+  border-radius: 5px;
+  list-style-type: none;
+  margin: 1em;
+  padding-left: 1em;
+}

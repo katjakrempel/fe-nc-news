@@ -27,3 +27,7 @@ export function postComment(article_id, body) {
 export function deleteComment(comment_id) {
     return api.delete(`/comments/${comment_id}`)
 };
+
+export function getTopics() {
+    return api.get('/topics')
+};
