@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { postComment } from "../../utils/api";
+import UserContext from "../contexts/User";
 
 function CommentAdder({ article, setComments }) {
+  const { loggedInUser } = useContext(UserContext);
   const [newComment, setNewComment] = useState("");
 
   function handleSubmit(event) {
@@ -18,6 +20,7 @@ function CommentAdder({ article, setComments }) {
 
   return (
     <section>
+      <p>You are posting as {loggedInUser.username}</p>
       <form className="comment-form" onSubmit={handleSubmit}>
         <input
           placeholder="Write a comment..."
@@ -28,7 +31,7 @@ function CommentAdder({ article, setComments }) {
             setNewComment(event.target.value);
           }}
         />
-        <button type="submit">Submit</button>
+        <button className="submit-button" type="submit">Submit</button>
       </form>
     </section>
   );

@@ -23,3 +23,7 @@ export function patchArticle(article_id, body) {
 export function postComment(article_id, body) {
     return api.post(`/articles/${article_id}/comments`, body)
 };
+
+export function deleteComment(comment_id) {
+    return api.delete(`/comments/${comment_id}`)
+};
