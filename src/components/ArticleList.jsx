@@ -6,13 +6,21 @@ import ArticleCard from "./ArticleCard";
 function ArticleList() {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [sort, setSort] = useState('date');
+  const [sort, setSort] = useState("created_at");
+  const [sortType, setSortType] = useState("desc");
   const [searchParams, setSearchParams] = useSearchParams();
   const topicQuery = searchParams.get("topic");
-console.log(sort)
+
   useEffect(() => {
     getArticles().then((response) => {
-      const articles = response.data.articles;
+      let articles = response.data.articles;
+
+      if (sortType === "desc") {
+        articles = articles.sort((a, b) => b[sort] - a[sort]);
+      } else if (sortType === "asc") {
+        articles = articles.sort((a, b) => a[sort] - b[sort]);
+      }
+
       if (topicQuery) {
         const filteredArticles = articles.filter((article) => {
           return article.topic === topicQuery;
@@ -23,21 +31,37 @@ console.log(sort)
       }
       setIsLoading(false);
     });
-  }, [topicQuery]);
+  }, [topicQuery, sort, sortType]);
 
   if (isLoading) return <p>Loading...</p>;
   return (
     <section>
       <h2>View all articles: </h2>
-      <div className="dropdown">
+      <div className="sort-by">
         <label>
           Sort articles by
-          <select value={sort} onChange={(event)=>{setSort(event.target.value)}}>
-            <option value="date">Date</option>
+          <select
+            value={sort}
+            onChange={(event) => {
+              setSort(event.target.value);
+            }}
+          >
+            <option value="created_at">Date</option>
             <option value="comment_count">Comment Count</option>
             <option value="votes">Votes</option>
           </select>
         </label>
+      </div>
+      <div className="sort-type">
+        <select
+          value={sortType}
+          onChange={(event) => {
+            setSortType(event.target.value);
+          }}
+        >
+          <option value="desc">Descending</option>
+          <option value="asc">Ascending</option>
+        </select>
       </div>
       <ul>
         {articles.map((article) => {
