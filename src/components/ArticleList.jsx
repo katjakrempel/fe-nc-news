@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getArticles } from "../../utils/api";
 import ArticleCard from "./ArticleCard";
+import ErrorPage from "./ErrorPage";
 
 function ArticleList() {
   const [articles, setArticles] = useState([]);
@@ -10,6 +11,7 @@ function ArticleList() {
   const [sortType, setSortType] = useState("desc");
   const [searchParams, setSearchParams] = useSearchParams();
   const topicQuery = searchParams.get("topic");
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     getArticles().then((response) => {
@@ -25,13 +27,22 @@ function ArticleList() {
         const filteredArticles = articles.filter((article) => {
           return article.topic === topicQuery;
         });
-        setArticles(filteredArticles);
+        if (filteredArticles.length === 0) {
+          setError("404: Page not found");
+        } else {
+          setArticles(filteredArticles);
+        }
       } else {
         setArticles(articles);
       }
       setIsLoading(false);
     });
   }, [topicQuery, sort, sortType]);
+
+  if (error) {
+    console.log(error)
+    return <ErrorPage errorMessage={error} />;
+  }
 
   if (isLoading) return <p>Loading...</p>;
   return (
