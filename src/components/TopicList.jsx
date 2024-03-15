@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getTopics } from "../../utils/api";
 
 function TopicList() {
@@ -19,10 +20,12 @@ function TopicList() {
       <ul>
         {topics.map((topic) => {
           return (
-            <li className="topic-card" key={topic.slug}>
-              <h3>{topic.slug[0].toUpperCase()+topic.slug.slice(1,)}</h3>
-              <p>{topic.description}</p>
-            </li>
+            <Link to={`/articles?topic=${topic.slug}`}>
+              <li className="topic-card" key={topic.slug}>
+                <h3>{topic.slug[0].toUpperCase() + topic.slug.slice(1)}</h3>
+                <p>{topic.description}</p>
+              </li>
+            </Link>
           );
         })}
       </ul>
