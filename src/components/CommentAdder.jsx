@@ -31,7 +31,7 @@ function CommentAdder({ article, setComments }) {
             setNewComment(event.target.value);
           }}
         />
-        <button type="submit">Submit</button>
+        <button className="submit-button" type="submit">Submit</button>
       </form>
     </section>
   );

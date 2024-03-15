@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getArticleById, getCommentsByArticleId, patchArticle } from "../../utils/api";
+import {
+  getArticleById,
+  getCommentsByArticleId,
+  patchArticle,
+} from "../../utils/api";
 import CommentCard from "./CommentCard";
 import CommentAdder from "./CommentAdder";
 
@@ -13,31 +17,31 @@ function SingleArticle() {
   const [voteError, setVoteError] = useState(null);
 
   function upVote(article_id) {
-    const body = {inc_votes: 1}
+    const body = { inc_votes: 1 };
     setArticle((currArticle) => {
-      return {...currArticle, votes: currArticle.votes + 1}
-    })
+      return { ...currArticle, votes: currArticle.votes + 1 };
+    });
     setVoteError(null);
-    patchArticle(article_id, body).catch((err)=>{
+    patchArticle(article_id, body).catch((err) => {
       setArticle((currArticle) => {
-        return {...currArticle, votes: currArticle.votes - 1}
-      })
-      setVoteError('Something went wrong, please try again')
-    })
+        return { ...currArticle, votes: currArticle.votes - 1 };
+      });
+      setVoteError("Something went wrong, please try again");
+    });
   }
 
   function downVote(article_id) {
-    const body = {inc_votes: -1}
+    const body = { inc_votes: -1 };
     setArticle((currArticle) => {
-      return {...currArticle, votes: currArticle.votes - 1}
-    })
+      return { ...currArticle, votes: currArticle.votes - 1 };
+    });
     setVoteError(null);
-    patchArticle(article_id, body).catch((err)=>{
+    patchArticle(article_id, body).catch((err) => {
       setArticle((currArticle) => {
-        return {...currArticle, votes: currArticle.votes + 1}
-      })
-      setVoteError('Something went wrong, please try again')
-    })
+        return { ...currArticle, votes: currArticle.votes + 1 };
+      });
+      setVoteError("Something went wrong, please try again");
+    });
   }
 
   useEffect(() => {
@@ -65,19 +69,35 @@ function SingleArticle() {
         <img src={article.article_img_url} />
         <p>Topic: {article.topic}</p>
         <p>Comments: {article.comment_count}</p>
-        <button onClick={() => {
-          upVote(article.article_id)
-          }} className="vote-button">+</button>
+        <button
+          onClick={() => {
+            upVote(article.article_id);
+          }}
+          className="vote-button"
+        >
+          +
+        </button>
         <span className="article-vote">Votes: {article.votes}</span>
-        <button onClick={() => downVote(article.article_id)} className="vote-button">-</button>
+        <button
+          onClick={() => downVote(article.article_id)}
+          className="vote-button"
+        >
+          -
+        </button>
         <p>{article.body}</p>
       </section>
       <section className="comment-list">
         <h4>Comments</h4>
-        <CommentAdder article={article} setComments={setComments}/>
+        <CommentAdder article={article} setComments={setComments} />
         <ul>
           {comments.map((comment) => {
-            return <CommentCard key={comment.comment_id} comment={comment} setComments={setComments} />;
+            return (
+              <CommentCard
+                key={comment.comment_id}
+                comment={comment}
+                setComments={setComments}
+              />
+            );
           })}
         </ul>
       </section>

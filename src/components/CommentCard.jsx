@@ -2,11 +2,10 @@ import { useContext } from "react";
 import UserContext from "../contexts/User";
 import { deleteComment } from "../../utils/api";
 
-function CommentCard({ comment, setComments }) {
+function CommentCard({ comment, setComments}) {
   const { loggedInUser } = useContext(UserContext);
 
-  function handleDelete(event) {
-    event.preventDefault();
+  function handleDelete() {
     deleteComment(comment.comment_id).then(() => {
       setComments((currComments) => {
         return currComments.filter((currComment) => {
