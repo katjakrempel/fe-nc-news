@@ -36,24 +36,24 @@ function ArticleList() {
   if (isLoading) return <p>Loading...</p>;
   return (
     <section>
-      <h2>View all articles: </h2>
-      <div className="sort-by">
-        <label>
-          Sort articles by
-          <select
-            value={sort}
-            onChange={(event) => {
-              setSort(event.target.value);
-            }}
-          >
-            <option value="created_at">Date</option>
-            <option value="comment_count">Comment Count</option>
-            <option value="votes">Votes</option>
-          </select>
-        </label>
-      </div>
-      <div className="sort-type">
+      <h2>View all articles </h2>
+      <p>Sort articles by:</p>
+      <div>
         <select
+          className="dropdown"
+          value={sort}
+          onChange={(event) => {
+            setSort(event.target.value);
+          }}
+        >
+          <option value="created_at">Date</option>
+          <option value="comment_count">Comment Count</option>
+          <option value="votes">Votes</option>
+        </select>
+      </div>
+      <div>
+        <select
+          className="dropdown"
           value={sortType}
           onChange={(event) => {
             setSortType(event.target.value);
