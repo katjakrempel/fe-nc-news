@@ -16,29 +16,15 @@ function SingleArticle() {
   const [commentsLoading, setCommentsLoading] = useState(true);
   const [voteError, setVoteError] = useState(null);
 
-  function upVote(article_id) {
-    const body = { inc_votes: 1 };
+  function voteArticle(article_id, inc_votes) {
+    const body = { inc_votes: inc_votes };
     setArticle((currArticle) => {
-      return { ...currArticle, votes: currArticle.votes + 1 };
+      return { ...currArticle, votes: currArticle.votes + inc_votes };
     });
     setVoteError(null);
     patchArticle(article_id, body).catch((err) => {
       setArticle((currArticle) => {
-        return { ...currArticle, votes: currArticle.votes - 1 };
-      });
-      setVoteError("Something went wrong, please try again");
-    });
-  }
-
-  function downVote(article_id) {
-    const body = { inc_votes: -1 };
-    setArticle((currArticle) => {
-      return { ...currArticle, votes: currArticle.votes - 1 };
-    });
-    setVoteError(null);
-    patchArticle(article_id, body).catch((err) => {
-      setArticle((currArticle) => {
-        return { ...currArticle, votes: currArticle.votes + 1 };
+        return { ...currArticle, votes: currArticle.votes - inc_votes };
       });
       setVoteError("Something went wrong, please try again");
     });
@@ -46,10 +32,11 @@ function SingleArticle() {
 
   useEffect(() => {
     setArticleLoading(true);
-    getArticleById(article_id).then((response) => {
-      setArticle(response.data.article);
-      setArticleLoading(false);
-    });
+    getArticleById(article_id)
+      .then((response) => {
+        setArticle(response.data.article);
+        setArticleLoading(false);
+      });
     setCommentsLoading(true);
     getCommentsByArticleId(article_id).then((response) => {
       setComments(response.data.comments);
@@ -71,18 +58,18 @@ function SingleArticle() {
         <p>Comments: {article.comment_count}</p>
         <button
           onClick={() => {
-            upVote(article.article_id);
+            voteArticle(article.article_id, -1);
           }}
           className="vote-button"
         >
-          +
+          -
         </button>
         <span className="article-vote">Votes: {article.votes}</span>
         <button
-          onClick={() => downVote(article.article_id)}
+          onClick={() => voteArticle(article.article_id, 1)}
           className="vote-button"
         >
-          -
+          +
         </button>
         <p>{article.body}</p>
       </section>

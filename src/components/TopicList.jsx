@@ -20,12 +20,12 @@ function TopicList() {
       <ul>
         {topics.map((topic) => {
           return (
-            <Link to={`/articles?topic=${topic.slug}`}>
-              <li className="topic-card" key={topic.slug}>
+            <li className="topic-card" key={topic.slug}>
+              <Link to={`/articles?topic=${topic.slug}`}>
                 <h3>{topic.slug[0].toUpperCase() + topic.slug.slice(1)}</h3>
                 <p>{topic.description}</p>
-              </li>
-            </Link>
+              </Link>
+            </li>
           );
         })}
       </ul>
