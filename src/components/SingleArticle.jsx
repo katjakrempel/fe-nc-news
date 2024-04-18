@@ -30,34 +30,6 @@ function SingleArticle() {
     });
   }
 
-  function upVote(article_id) {
-    const body = { inc_votes: 1 };
-    setArticle((currArticle) => {
-      return { ...currArticle, votes: currArticle.votes + 1 };
-    });
-    setVoteError(null);
-    patchArticle(article_id, body).catch((err) => {
-      setArticle((currArticle) => {
-        return { ...currArticle, votes: currArticle.votes - 1 };
-      });
-      setVoteError("Something went wrong, please try again");
-    });
-  }
-
-  function downVote(article_id) {
-    const body = { inc_votes: -1 };
-    setArticle((currArticle) => {
-      return { ...currArticle, votes: currArticle.votes - 1 };
-    });
-    setVoteError(null);
-    patchArticle(article_id, body).catch((err) => {
-      setArticle((currArticle) => {
-        return { ...currArticle, votes: currArticle.votes + 1 };
-      });
-      setVoteError("Something went wrong, please try again");
-    });
-  }
-
   useEffect(() => {
     setArticleLoading(true);
     getArticleById(article_id)
