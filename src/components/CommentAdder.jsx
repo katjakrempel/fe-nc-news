@@ -8,7 +8,7 @@ function CommentAdder({ article, setComments }) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    const requestBody = { username: "cooljmessy", body: newComment };
+    const requestBody = { username: loggedInUser.username, body: newComment };
     postComment(article.article_id, requestBody).then((response) => {
       const newCommentFromApi = response.data.comment;
       setNewComment("");
