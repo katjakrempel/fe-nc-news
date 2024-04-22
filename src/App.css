@@ -26,7 +26,7 @@ body {
 
 .article-card {
   width: 80%;
-  border: 2px solid tomato;
+  border: 2px solid grey;
   border-radius: 5px;
   list-style-type: none;
   margin: 1em;
@@ -92,4 +92,13 @@ body {
   margin: 0em 0em 0.5em 3em;
   width: 140px;
   box-shadow: 0 2px 3px lightslategray;
+}
+
+.headline-card {
+  width: 80%;
+  border: 2px solid darksalmon;
+  border-radius: 5px;
+  list-style-type: none;
+  margin: 1em;
+  padding-left: 1em;
 }

@@ -40,14 +40,13 @@ function ArticleList() {
   }, [topicQuery, sort, sortType]);
 
   if (error) {
-    console.log(error)
     return <ErrorPage errorMessage={error} />;
   }
 
   if (isLoading) return <p>Loading...</p>;
   return (
     <section>
-      <h2>View all articles </h2>
+      <h2>Browse all articles </h2>
       <p>Sort articles by:</p>
       <div>
         <select
