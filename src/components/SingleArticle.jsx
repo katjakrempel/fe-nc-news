@@ -32,11 +32,10 @@ function SingleArticle() {
 
   useEffect(() => {
     setArticleLoading(true);
-    getArticleById(article_id)
-      .then((response) => {
-        setArticle(response.data.article);
-        setArticleLoading(false);
-      });
+    getArticleById(article_id).then((response) => {
+      setArticle(response.data.article);
+      setArticleLoading(false);
+    });
     setCommentsLoading(true);
     getCommentsByArticleId(article_id).then((response) => {
       setComments(response.data.comments);
@@ -54,7 +53,7 @@ function SingleArticle() {
           Posted by {article.author} on {article.created_at.slice(0, 10)}
         </p>
         <img src={article.article_img_url} />
-        <p>Topic: {article.topic}</p>
+        <p>Topic: {article.topic[0].toUpperCase() + article.topic.slice(1)}</p>
         <p>Comments: {article.comment_count}</p>
         <button
           onClick={() => {
@@ -75,7 +74,11 @@ function SingleArticle() {
       </section>
       <section className="comment-list">
         <h4>Comments</h4>
-        <CommentAdder article={article} setComments={setComments} />
+        <CommentAdder
+          article={article}
+          setComments={setComments}
+          setArticle={setArticle}
+        />
         <ul>
           {comments.map((comment) => {
             return (
@@ -83,6 +86,7 @@ function SingleArticle() {
                 key={comment.comment_id}
                 comment={comment}
                 setComments={setComments}
+                setArticle={setArticle}
               />
             );
           })}
