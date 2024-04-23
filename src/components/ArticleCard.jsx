@@ -11,7 +11,7 @@ function ArticleCard({ article }) {
       <p>
         Posted by {article.author} on {article.created_at.slice(0, 10)}
       </p>
-      <p>Topic: {article.topic}</p>
+      <p>Topic: {article.topic[0].toUpperCase() + article.topic.slice(1)}</p>
       <p>Comments: {article.comment_count}</p>
       <p>Votes: {article.votes}</p>
     </li>

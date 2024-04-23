@@ -17,7 +17,11 @@ function ArticleList() {
     getArticles().then((response) => {
       let articles = response.data.articles;
 
-      if (sortType === "desc") {
+      if (sort === "created_at" && sortType === "desc") {
+        articles.sort((a, b) => new Date(b["created_at"]) - new Date(a["created_at"]));
+      } else if (sort === "created_at" && sortType === "asc") {
+        articles.sort((a, b) => new Date(a["created_at"]) - new Date(b["created_at"]));
+      } else if (sortType === "desc") {
         articles = articles.sort((a, b) => b[sort] - a[sort]);
       } else if (sortType === "asc") {
         articles = articles.sort((a, b) => a[sort] - b[sort]);
