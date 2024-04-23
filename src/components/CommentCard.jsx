@@ -33,7 +33,11 @@ function CommentCard({ comment, setComments, setArticle }) {
       <p>Votes: {comment.votes}</p>
       <button
         onClick={handleDelete}
-        disabled={comment.author === loggedInUser.username ? false : true}
+        style={
+          comment.author === loggedInUser.username
+            ? { display: "block" }
+            : { display: "none" }
+        }
         className="delete-button"
       >
         Delete
